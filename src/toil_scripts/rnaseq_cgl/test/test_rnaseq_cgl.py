@@ -2,7 +2,6 @@ import os
 import shutil
 import subprocess
 import textwrap
-from uuid import uuid4
 
 from bd2k.util.files import mkdir_p
 from boto.s3.connection import S3Connection, Bucket, Key
@@ -11,7 +10,7 @@ from toil_scripts.lib import get_work_directory
 
 
 def test_rnaseq_cgl(tmpdir):
-    workdir = os.path.join(get_work_directory(), 'rnaseq-' + str(uuid4()))
+    workdir = get_work_directory()
     mkdir_p(workdir)
     create_config_and_manifest(workdir)
     sample = 's3://cgl-pipeline-inputs/rnaseq_cgl/ci/chr6_sample.tar.gz'

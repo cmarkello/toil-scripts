@@ -1,5 +1,6 @@
 import os
 import tempfile
+from uuid import uuid4
 
 
 def flatten(x):
@@ -35,12 +36,13 @@ def partitions(l, partition_size):
         yield l[i:i + partition_size]
 
 
-def get_work_directory(env_variable='TOIL_WORKDIR', backup_dir='/mnt/ephemeral'):
+def get_work_directory():
     try:
-        return os.environ[env_variable]
+        return os.path.join(os.environ['TOIL_WORKDIR'], str(uuid4()))
     except KeyError:
-        if os.path.exists(backup_dir):
-            return backup_dir
+        fallback_dir = '/mnt/ephemeral'
+        if os.path.exists(fallback_dir):
+            return os.path.join(fallback_dir, str(uuid4()))
         else:
             return tempfile.mkdtemp()
 

@@ -1,3 +1,7 @@
+import os
+import tempfile
+
+
 def flatten(x):
     """
     Flattens a nested array into a single list
@@ -29,6 +33,16 @@ def partitions(l, partition_size):
     """
     for i in xrange(0, len(l), partition_size):
         yield l[i:i + partition_size]
+
+
+def get_work_directory(env_variable='TOIL_WORKDIR', backup_dir='/mnt/ephemeral'):
+    try:
+        return os.environ[env_variable]
+    except KeyError:
+        if os.path.exists(backup_dir):
+            return backup_dir
+        else:
+            return tempfile.mkdtemp()
 
 
 class UserError(Exception):

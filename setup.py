@@ -73,8 +73,9 @@ kwargs = dict(
     author_email='cgl-toil@googlegroups.com',
     url="https://github.com/BD2KGenomics/toil-scripts",
     install_requires=[
-        'toil-lib==1.0.3',
-        'pyyaml==3.11'],
+        'toil-lib==1.1.0a1',
+        'pyyaml==3.11',
+        'biopython==1.67'],
     tests_require=[
         'pytest==2.8.3'],
     package_dir={'': 'src'},
@@ -83,7 +84,8 @@ kwargs = dict(
         'console_scripts': [
             'toil-bwa = toil_scripts.bwa_alignment.bwa_alignment:main',
             'toil-rnaseq = toil_scripts.rnaseq_cgl.rnaseq_cgl_pipeline:main',
-            'toil-exome = toil_scripts.exome_variant_pipeline.exome_variant_pipeline:main']})
+            'toil-exome = toil_scripts.exome_variant_pipeline.exome_variant_pipeline:main',
+            'toil-vg = toil_scripts.vg_evaluation_pipeline.vg_evaluation_pipeline:main']})
 
 
 class PyTest(TestCommand):

@@ -25,9 +25,7 @@ def check_provided(distribution, min_version, max_version=None, optional=False):
     min_version = parse_version(min_version)
     if max_version is not None:
         max_version = parse_version(max_version)
-
     messages = []
-
     toil_missing = 'Cannot find a valid installation of Toil.'
     dist_missing = 'Cannot find an installed copy of the %s distribution, typically provided by Toil.' % distribution
     version_too_low = 'The installed copy of %s is out of date. It is typically provided by Toil.' % distribution
@@ -36,7 +34,7 @@ def check_provided(distribution, min_version, max_version=None, optional=False):
     required_version += '.' if max_version is None else ', up to but not including %s.' % (max_version,)
     install_toil = 'Installing Toil should fix this problem.'
     upgrade_toil = 'Upgrading Toil should fix this problem.'
-    reinstall_dist = 'Uninstalling %s and reinstalling Toil should fix this problem.' % distribution
+    reinstall_dist = 'Uninstalling {} and reinstalling Toil should fix this problem.'.format(distribution)
     reinstall_toil = 'Uninstalling Toil and reinstalling it should fix this problem.'
     footer = ("Setup doesn't install Toil automatically to give you a chance to choose any of the optional extras "
               "that Toil provides. More on installing Toil at http://toil.readthedocs.io/en/latest/installation.html.")
@@ -73,8 +71,9 @@ kwargs = dict(
     author_email='cgl-toil@googlegroups.com',
     url="https://github.com/BD2KGenomics/toil-scripts",
     install_requires=[
-        'toil-lib==1.1.0a1.dev65',
-        'pyyaml==3.11'],
+        'toil-lib==1.1.0a1',
+        'pyyaml==3.11',
+        'biopython==1.67'],
     tests_require=[
         'pytest==2.8.3'],
     package_dir={'': 'src'},
@@ -82,7 +81,9 @@ kwargs = dict(
     entry_points={
         'console_scripts': [
             'toil-bwa = toil_scripts.bwa_alignment.bwa_alignment:main',
-            'toil-exome = toil_scripts.exome_variant_pipeline.exome_variant_pipeline:main']})
+            'toil-rnaseq = toil_scripts.rnaseq_cgl.rnaseq_cgl_pipeline:main',
+            'toil-exome = toil_scripts.exome_variant_pipeline.exome_variant_pipeline:main',
+            'toil-vg = toil_scripts.vg_evaluation_pipeline.vg_evaluation_pipeline:main']})
 
 
 class PyTest(TestCommand):
